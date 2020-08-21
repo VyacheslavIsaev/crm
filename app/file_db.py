@@ -18,7 +18,7 @@ class FileDB(Database):
     """
 
     def __init__(self, filename):
-        self.load_xml(filename)
+        self.load_json(filename)
         print(self._data)
 
     def load_json(self, filename):

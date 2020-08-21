@@ -13,7 +13,7 @@ from file_db import FileDB
 # Create Flask object and instantiate database object
 app = Flask(__name__)
 
-db_file = "data/data.xml"
+db_file = "data/data.json"
 db = FileDB(db_file)
 acct_balance = "N/A"
 
