@@ -3,3 +3,4 @@ pyyaml
 xmltodict
 pytest
 requests
+pylint
