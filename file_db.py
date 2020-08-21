@@ -8,6 +8,7 @@ Purpose: Define database which read from plain files.
 import json
 import logging
 import yaml
+import xmltodict
 
 from db import Database
 
@@ -17,8 +18,8 @@ class FileDB(Database):
     """
 
     def __init__(self, filename):
-        self.load_yaml(filename)
-        logging.debug(self._data)
+        self.load_xml(filename)
+        print(self._data)
 
     def load_json(self, filename):
         """ Loads json file as database."""
@@ -30,3 +31,7 @@ class FileDB(Database):
         with open(filename, "r") as filehandle:
             self._data = yaml.safe_load(filehandle)
         
+    def load_xml(self, filename):
+        """ Loads yaml file. """
+        with open(filename, "r") as filehandle:
+            self._data = xmltodict.parse(filehandle.read())["root"]
