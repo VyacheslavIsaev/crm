@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+    crm1:
+        build: "."
+        image: "crm:latest"
+        ports:
+            - 8050:5000/tcp
+        volumes:
+            - ./app:/usr/app
+    crm2:
+        image: "crm:latest"
+        ports:
+            - 8051:5000/tcp
+    crm3:
+        image: "crm:latest"
+        ports:
+            - 8052:5000/tcp
+            
