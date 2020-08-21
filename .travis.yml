@@ -10,9 +10,9 @@ services:
 install:
     - "pip install -r requires.txt"
 
-#
+# Verify that system is ready for system testing.
 before_script:
-    - "pylint app/*.py"
+#    - "pylint app/*.py"
     - "pytest --verbose app/test_unit.py"
     - "docker-compose up -d"
     - "docker container ls"
