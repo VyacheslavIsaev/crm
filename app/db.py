@@ -27,3 +27,10 @@ class Database(ABC):
             bal = float(acct["due"]) - float(acct["paid"])
             return f"{bal:.2f} USD"
         return None
+
+    def owes_money(self, acct_id):
+        acct = self._data.get(acct_id)
+        if acct:        
+            return float(acct["due"]) > float(acct["paid"]);
+        return None
+    

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-Author: Nick Russo
+Author" Viacheslav Isaev
+Idea by: Nick Russo
 Purpose: A simple Flask web app that demonstrates the Model View Controller
 (MVC) pattern in a meaningful and somewhat realistic way.
 """
