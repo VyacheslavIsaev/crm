@@ -1,3 +1,4 @@
 z_pyenv
 env
 venv
+__pycache__
