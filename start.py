@@ -7,12 +7,12 @@ Purpose: A simple Flask web app that demonstrates the Model View Controller
 """
 
 from flask import Flask, render_template, request
-from database import Database
+from static_db import StaticDB
 
 
 # Create Flask object and instantiate database object
 app = Flask(__name__)
-db = Database()
+db = StaticDB()
 acct_balance = "N/A"
 
 @app.route("/", methods=["GET", "POST"])
