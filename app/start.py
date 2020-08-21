@@ -8,14 +8,13 @@ Purpose: A simple Flask web app that demonstrates the Model View Controller
 """
 
 from flask import Flask, render_template, request
-from static_db import StaticDB
 from file_db import FileDB
 
 # Create Flask object and instantiate database object
 app = Flask(__name__)
 
-db_file = "data/data.json"
-db = FileDB(db_file)
+DB_FILE = "data/data.json"
+db = FileDB(DB_FILE)
 acct_balance = "N/A"
 
 @app.route("/", methods=["GET", "POST"])
@@ -39,18 +38,22 @@ def index():
     # be displayed back to the user.
     return render_template("index.html", acct_balance=acct_balance)
 
-def processPost(request):
-    # This collects the user input from the view. The controller's job
-    # is to process this information, which includes using methods from
-    # the "model" to get the information we need (in this case,
-    # the account balance).
-    acct_id = request.form["acctid"]
+def processPost(req):
+    """
+    This collects the user input from the view. The controller's job
+    is to process this information, which includes using methods from
+    the "model" to get the information we need (in this case,
+    the account balance).
+    """
+    acct_id = req.form["acctid"]
     acct_balance = db.balance(acct_id.upper())
     app.logger.debug(f"balance for {acct_id}: {acct_balance}")
     return acct_balance
 
-def processGet(request):
-    # During a normal GET request, no need to perform any calculations
+def processGet(req):
+    """
+    During a normal GET request, no need to perform any calculations
+    """
     return "N/A"
 
 if __name__ == "__main__":

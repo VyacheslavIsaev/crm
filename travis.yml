@@ -1,0 +1,25 @@
+---
+dist: "xenial"
+language: "python"
+python:
+    - "3.7"
+
+services:
+    - "docker"
+
+install:
+    - "pip install -r requires.txt"
+
+#
+before_script:
+    - "pylint app/*.py"
+    - "pytest --verbose app/test_unit.py"
+    - "docker-compose up -d"
+    - "docker container ls"
+
+script:
+    - "pytest --verbose src/test_system.py"
+
+after_script:
+    - "dcoker-compose down"
+...

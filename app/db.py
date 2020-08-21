@@ -5,11 +5,11 @@ Author: Viacheslav Isaev
 Purpose: Define DB interface.
 """
 
-from abc import ABC, abstractmethod
+from abc import ABC
 
 class Database(ABC):
     """
-    Represent the interface to the data (model). 
+    Represent the interface to the data (model).
     """
     _data = {}
 
@@ -29,8 +29,11 @@ class Database(ABC):
         return None
 
     def owes_money(self, acct_id):
+        """
+        Return TRUE if account owes money
+        """
         acct = self._data.get(acct_id)
-        if acct:        
-            return float(acct["due"]) > float(acct["paid"]);
+        if acct:
+            return float(acct["due"]) > float(acct["paid"])
         return None
     
