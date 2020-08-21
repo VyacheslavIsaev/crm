@@ -8,11 +8,14 @@ Purpose: A simple Flask web app that demonstrates the Model View Controller
 
 from flask import Flask, render_template, request
 from static_db import StaticDB
+from file_db import FileDB
 
 
 # Create Flask object and instantiate database object
 app = Flask(__name__)
-db = StaticDB()
+
+db_file = "data/data.json"
+db = FileDB(db_file)
 acct_balance = "N/A"
 
 @app.route("/", methods=["GET", "POST"])

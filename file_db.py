@@ -14,6 +14,6 @@ class FileDB(Database):
 
     def __init__(self, filename):
 
-        with open(path, "r") as filehandle:
+        with open(filename, "r") as filehandle:
             import json
             self._data = json.load(filehandle)
