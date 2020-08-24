@@ -14,7 +14,7 @@ install:
 before_script:
 #    - "pylint app/*.py"
     - "pytest --verbose src/test_db.py"
-    - "./certs/create-self-cert.sh"
+    - "./scripts/create-self-cert.sh"
     - "docker-compose up -d"
     - "docker container ls"
 
