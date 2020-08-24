@@ -5,6 +5,7 @@ Author: Viacheslav Isaev
 
 import time
 import json
+import logging
 from sqlalchemy import create_engine, Table, Column, Float, String, MetaData
 
 from db import Database
@@ -24,7 +25,8 @@ class OrmDB(Database):
         super().__init__()
         self.init_db(db_url)
         self.force_connection()
-        self.init_db_with_json_file(json_file_path)
+        # if self.is_connected() and self.table_empty():
+        #     self.init_db_with_json_file(json_file_path)
 
     def init_db(self, db_url):
         """ Initializes ORM """
@@ -40,13 +42,14 @@ class OrmDB(Database):
                 self.connect()
                 break
             except:
+                logging.info("Failed to connect.");
                 time.sleep(self._retry_timeout)
         if not self.is_connected:
             raise TimeoutError("Could not establish session to mysql db.")
 
     def is_connected(self):
         """ Checks if we are connected. """
-        return hasattr(self, "_conn") or not self._conn.closed
+        return hasattr(self, "_conn") and not self._conn.closed
 
     def create_table(self):
         """ Creates table. """
@@ -85,8 +88,12 @@ class OrmDB(Database):
         """
         Overwrites default functionality.
         """
-        select_acct_balance = self._table.select().where(
-            self._table.c.acctid == acct_id.upper()
-        )
-        result = self._conn.execute(select_acct_balance)
-        return result.fetchone()
+        with self._engine.connect() as connection:
+            select_acct_balance = self._table.select().where(
+                self._table.c.acctid == acct_id.upper()
+            )
+            result = connection.execute(select_acct_balance)
+            return result.fetchone()
+
+    def table_empty(self):
+        return self._conn.execute(self._table.select()).first() is None

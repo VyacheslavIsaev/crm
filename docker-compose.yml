@@ -1,19 +1,16 @@
 version: "3"
 
 services:
-    crm1:
+    uix:
         build: "."
         image: "crm:latest"
         ports:
             - 8050:5000/tcp
         volumes:
             - ./app:/usr/app
-    crm2:
-        image: "crm:latest"
-        ports:
-            - 8051:5000/tcp
-    crm3:
-        image: "crm:latest"
-        ports:
-            - 8052:5000/tcp
-            
+    db:
+        image: "mysql:latest"
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: "nilcrmdbpasswd"
+            MYSQL_DATABASE: "crm"
