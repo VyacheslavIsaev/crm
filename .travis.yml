@@ -9,12 +9,12 @@ services:
 
 install:
     - "pip install -r requires.txt"
-
+    - "./scripts/create-self-cert.sh"
+    
 # Verify that system is ready for system testing.
 before_script:
 #    - "pylint app/*.py"
     - "pytest --verbose src/test_db.py"
-    - "./scripts/create-self-cert.sh"
     - "docker-compose up -d"
     - "docker container ls"
 
