@@ -7,3 +7,5 @@ pylint
 SQLAlchemy
 mysqlclient
 bandit
+flask_wtf
+bs4
