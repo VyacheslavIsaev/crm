@@ -22,11 +22,11 @@
 
         <div class="main-container">
             <div class="main wrapper clearfix">
-
                 <article>
                     <header>
                         <form action="" method="post">
-                          <article>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <article>
                             <p>Enter account ID (e.g. ACCT100): <input type="text" name="acctid"></p>
                             <p><button type="submit">Submit</button></p>
                             {% if acct_balance is not none %}

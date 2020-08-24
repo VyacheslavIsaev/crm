@@ -30,6 +30,11 @@ def build_get_args(url):
 def build_post_args(url):
     args = build_get_args(url)
     args["headers"] = post_headers()
+    args["headers"].update(
+        {
+            "Referer": args["url"]
+        }
+    )
     return args
 
 def assert_get_correct_page(host_url, port):
@@ -66,13 +71,15 @@ def assert_post_acct(url, port, acct, expected):
     args = build_get_args(f"{url}:{port}")
     resp = s.get(**args)
     assert resp.status_code == 200
+    data = f"acctid={acct}"
     dom = BeautifulSoup(resp.text, 'html.parser')
     csrf = dom.find("input", {"name": "csrf_token"})
-    data = f"acctid={acct}"
+    print(f"CSRF: {csrf}")
     if not csrf is None:
         csrf_token = csrf["value"]
-        data = f"acctid={acct}&csrf_token={csrf_token}"
-    args = build_post_args(f"{url}:{port}")    
+        data = f"csrf_token={csrf_token}&acctid={acct}"
+    args = build_post_args(f"{url}:{port}")
+    print(data)
     resp = s.post(**args, data=data)
     assert resp.status_code == 200
     if expected:
