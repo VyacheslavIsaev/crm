@@ -13,6 +13,12 @@ class Database(ABC):
     """
     _data = {}
 
+    def get_acct(self, acct_id):
+        """
+        Returns data dictionary for a specified account.
+        """
+        return self._data.get(acct_id)
+
     def balance(self, acct_id):
         """
         Determines the customer balance by finding the difference between
@@ -22,7 +28,13 @@ class Database(ABC):
         owes us money and a negative number means they overpaid and have
         a credit with us.
         """
-        acct = self._data.get(acct_id)
+        acct = self.get_acct(acct_id)
+        return self.calc_balance(acct)
+
+    def calc_balance(self, acct):
+        """
+        Calcualte balance from data dictionary.
+        """
         if acct:
             bal = float(acct["due"]) - float(acct["paid"])
             return f"{bal:.2f} USD"
@@ -32,8 +44,7 @@ class Database(ABC):
         """
         Return TRUE if account owes money
         """
-        acct = self._data.get(acct_id)
+        acct = self.get_acct(acct_id)
         if acct:
             return float(acct["due"]) > float(acct["paid"])
         return None
-    
