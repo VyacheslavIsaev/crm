@@ -4,7 +4,7 @@ System test.
 
 import requests
 
-TEST_URL = "http://localhost"
+TEST_URL = "https://localhost"
 
 TEST_PORTS = [8050]
 
@@ -22,7 +22,8 @@ def assert_get_correct_page(host_url, port):
     """
     Sunny case scenario
     """
-    resp = requests.get(f"{host_url}:{port}", headers=get_headers())
+    requests.packages.urllib3.disable_warnings()
+    resp = requests.get(f"{host_url}:{port}", headers=get_headers(), verify=False)
     assert resp.status_code == 200
     assert "Enter account ID" in resp.text
 
@@ -35,7 +36,8 @@ def assert_get_bad_page(host_url, port):
     """
     Wrong page requested
     """
-    resp = requests.get(f"{host_url}:{port}/bad.html", headers=get_headers())
+    requests.packages.urllib3.disable_warnings()
+    resp = requests.get(f"{host_url}:{port}/bad.html", headers=get_headers(), verify=False)
     assert resp.status_code == 404
     assert "Not Found" in resp.text
 
@@ -46,7 +48,8 @@ def test_get_wrong_page_all():
 
 def assert_post_acct(url, port, acct, expected):
     """ Assert for POST request """
-    resp = requests.post(f"{url}:{port}", headers=post_headers(), data=f"acctid={acct}")
+    requests.packages.urllib3.disable_warnings()
+    resp = requests.post(f"{url}:{port}", headers=post_headers(), data=f"acctid={acct}", verify=False)
     assert resp.status_code == 200
     if expected:
         assert f"Account balance: {expected}" in resp.text
