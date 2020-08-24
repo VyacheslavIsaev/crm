@@ -25,8 +25,8 @@ class OrmDB(Database):
         super().__init__()
         self.init_db(db_url)
         self.force_connection()
-        # if self.is_connected() and self.table_empty():
-        #     self.init_db_with_json_file(json_file_path)
+        if self.is_connected() and self.table_empty():
+             self.init_db_with_json_file(json_file_path)
 
     def init_db(self, db_url):
         """ Initializes ORM """
