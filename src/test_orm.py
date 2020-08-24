@@ -12,7 +12,7 @@ orm_db = None
 @pytest.fixture
 def db_mock():
     """ Test fixture """
-    return OrmDB("sqlite:///:memory:", "app/data/db_init.json")
+    return OrmDB("sqlite:///:memory:", "data/db_init.json")
 
 
 def test_balance(db_mock):
