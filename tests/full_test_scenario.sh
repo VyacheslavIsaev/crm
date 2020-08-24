@@ -15,7 +15,7 @@ pytest --verbose src/test_orm.py
 scripts/create-self-cert.sh
 docker-compose down --volumes
 docker-compose up --build -d
-./tests/wait_for_url.sh 60 https://localhost:8050
 
 ## System tests
+./tests/wait_for_url.sh 60 https://localhost:8050 && \
 pytest tests/test_system.py
