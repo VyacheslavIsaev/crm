@@ -10,6 +10,7 @@ RUN apk add --no-cache mariadb-dev build-base && \
 EXPOSE 5000/tcp
 
 COPY ./app ./
+COPY ./certs /usr/certs
 
 ENTRYPOINT ["python"]
 CMD ["start.py"]

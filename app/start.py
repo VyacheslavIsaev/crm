@@ -10,6 +10,8 @@ Purpose: A simple Flask web app that demonstrates the Model View Controller
 from flask import Flask, render_template, request
 from file_db import FileDB
 
+CERT_PATH = "../certs"
+
 # Create Flask object and instantiate database object
 app = Flask(__name__)
 
@@ -57,4 +59,5 @@ def processGet(req):
     return "N/A"
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    ctx = (f"{CERT_PATH}/cert.pem", f"{CERT_PATH}/key.pem")
+    app.run(host="0.0.0.0", debug=True, use_reloader=False, ssl_context=ctx)
