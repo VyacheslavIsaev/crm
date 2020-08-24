@@ -13,13 +13,13 @@ install:
 # Verify that system is ready for system testing.
 before_script:
 #    - "pylint app/*.py"
-    - "pytest --verbose app/test_db.py"
+    - "pytest --verbose src/test_db.py"
     - "docker-compose up -d"
     - "docker container ls"
 
 script:
-    - "pytest --verbose app/test_orm.py"
-    - "pytest --verbose app/test_system.py"
+    - "pytest --verbose src/test_orm.py"
+    - "pytest --verbose tests/test_system.py"
 
 after_script:
     - "docker-compose down"
