@@ -6,3 +6,4 @@ requests
 pylint
 SQLAlchemy
 mysqlclient
+bandit
