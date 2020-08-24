@@ -7,7 +7,7 @@ import test_db_body
 @pytest.fixture
 def db_mock():
     """ Test fixture """
-    return file_db.FileDB("data/data.json")
+    return file_db.FileDB("app/data/data.json")
 
 def test_balance(db_mock):
     """ Testing balance method """
