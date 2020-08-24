@@ -6,7 +6,7 @@ import requests
 
 TEST_URL = "http://localhost"
 
-TEST_PORTS = [8050, 8051, 8052]
+TEST_PORTS = [8050]
 
 def get_headers():
     """ Generate GET headers """

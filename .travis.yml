@@ -18,8 +18,8 @@ before_script:
     - "docker container ls"
 
 script:
-    - "pytest --verbose app/test_system.py"
     - "pytest --verbose app/test_orm.py"
+    - "pytest --verbose app/test_system.py"
 
 after_script:
     - "docker-compose down"
